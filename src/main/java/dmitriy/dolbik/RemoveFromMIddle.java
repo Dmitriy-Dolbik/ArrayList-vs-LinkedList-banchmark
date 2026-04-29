@@ -31,18 +31,7 @@
 
 package dmitriy.dolbik;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Level;
-import org.openjdk.jmh.annotations.Measurement;
-import org.openjdk.jmh.annotations.Mode;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
-import org.openjdk.jmh.annotations.Param;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.Setup;
-import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.annotations.*;
 import org.openjdk.jmh.infra.Blackhole;
 
 import java.util.ArrayList;
@@ -57,8 +46,9 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 10, time = 3, timeUnit = TimeUnit.SECONDS)
 @Fork(value = 3)
 @State(Scope.Benchmark)
-public class RemoveFromEnd {
+public class RemoveFromMIddle {
 
+//    @Param({"100", "100000"})
     @Param({"100000"})
     private int listSize;
 
@@ -76,28 +66,19 @@ public class RemoveFromEnd {
     }
 
     @Benchmark
-    public long arrayListTest(Blackhole blackhole) {
-        return removeLast(arrayList, blackhole);
+    public long arrayListRemoveFromMiddle(Blackhole blackhole) {
+        return removeFromMiddle(arrayList, blackhole);
     }
 
     @Benchmark
-    public long linkedListTest(Blackhole blackhole) {
-        return removeLast(linkedList, blackhole);
+    public long linkedListRemoveFromMiddle(Blackhole blackhole) {
+        return removeFromMiddle(linkedList, blackhole);
     }
 
-    private long removeFromTheEndByIndex(List<Integer> testingList, Blackhole blackhole) {
+    private long removeFromMiddle(List<Integer> testingList, Blackhole blackhole) {
         long sum = 0;
         for (int i = listSize - 1; i >= 0; i--) {
-            blackhole.consume(testingList.removeLast());
-            sum += i;
-        }
-        return sum;
-    }
-
-    private long removeLast(List<Integer> testingList, Blackhole blackhole) {
-        long sum = 0;
-        for (int i = 0; i < listSize; i++) {
-            blackhole.consume(testingList.removeLast());
+            blackhole.consume(testingList.remove(testingList.size() / 2));
             sum += i;
         }
         return sum;

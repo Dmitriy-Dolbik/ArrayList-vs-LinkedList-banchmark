@@ -61,7 +61,7 @@ public class Iterations {
     private List<Integer> arrayList;
     private List<Integer> linkedList;
 
-    @Param({"10", "100", "1000", "100000"})
+    @Param({"100000"})
     private int listSize;
 
     @Setup()

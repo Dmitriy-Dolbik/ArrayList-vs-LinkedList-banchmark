@@ -31,16 +31,7 @@
 
 package dmitriy.dolbik;
 
-import org.openjdk.jmh.annotations.Benchmark;
-import org.openjdk.jmh.annotations.BenchmarkMode;
-import org.openjdk.jmh.annotations.Fork;
-import org.openjdk.jmh.annotations.Measurement;
-import org.openjdk.jmh.annotations.Mode;
-import org.openjdk.jmh.annotations.OutputTimeUnit;
-import org.openjdk.jmh.annotations.Param;
-import org.openjdk.jmh.annotations.Scope;
-import org.openjdk.jmh.annotations.State;
-import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.annotations.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -56,14 +47,8 @@ import java.util.concurrent.TimeUnit;
 @State(Scope.Benchmark)
 public class AddToEnd {
 
-    @Param({"10", "100", "1000", "100000"})
+    @Param({"100000"})
     private int listSize;
-
-    @Benchmark
-    public long arrayListWithCapacityTest() {
-        List<Integer> arrayList = new ArrayList<>(listSize);
-        return addToTheEnd(arrayList);
-    }
 
     @Benchmark
     public long arrayListTest() {
